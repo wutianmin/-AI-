@@ -43,7 +43,7 @@ flux_tensor = torch.tensor(flux, dtype=torch.float32)
 label_tensor = torch.tensor(label, dtype=torch.long)
 comp_file = Data.TensorDataset(flux_tensor, label_tensor)
 
-#9:1训练集测试集
+
 train_set, val_test_set = train_test_split(comp_file, test_size=0.3, random_state=30,shuffle=True)
 val_set, test_set = train_test_split(val_test_set, test_size=0.3, random_state=30,shuffle=True)
 train_data_size = len(train_set)
@@ -84,12 +84,12 @@ class cnnmodel(nn.Module):
 
 cnnm = cnnmodel()
 cnnm = cnnm.to(device)
-# 损失函数
+
 loss_fn = nn.CrossEntropyLoss()
 loss_fn = loss_fn.to(device)
-# 优化器
+
 learning_rate = 0.01# 学习率
-optim = torch.optim.SGD(cnnm.parameters(), lr=learning_rate)# Adam优化器
+optim = torch.optim.SGD(cnnm.parameters(), lr=learning_rate)
 scheduler = StepLR(optim, step_size=30, gamma=0.1)
 
 def train(EPOCHS, min_loss):
@@ -135,7 +135,7 @@ def train(EPOCHS, min_loss):
         con = 0
         acc = 0.0
         cnnm.eval()
-        with torch.no_grad():  # 设置网络中没有梯度
+        with torch.no_grad():  
             for batch_idx, (spec, target) in enumerate(val_dataloader):
                 spec = torch.reshape(spec, (-1, 1, 3000))
                 spec = spec.to(device)
@@ -228,7 +228,7 @@ def test(model_path):
 
     for i in range(label_name.__len__()):
         for j in range(label_name.__len__()):
-            color = (1, 1, 1) if i == j else (0, 0, 0)  # 对角线字体白色，其他黑色
+            color = (1, 1, 1) if i == j else (0, 0, 0)  
             value = float(format('%.2f' % cm[j, i]))
             plt.text(i, j, value, verticalalignment='center', horizontalalignment='center', color=color)
 
@@ -239,6 +239,6 @@ if __name__ == '__main__':
     min_loss = 1000000
     # 训练轮数
     EPOCHS = 1000  # 1000次
-    #train(EPOCHS, min_loss)
+    train(EPOCHS, min_loss)
     model_path = r'E:\aafile\pythonProject5\LLM_train\model_best.pth'
     test(model_path)
