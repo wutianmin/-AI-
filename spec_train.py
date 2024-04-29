@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-# @Time : 2022/7/21 15:40
-# @Author : wutianmin
-
 import pandas as pd
 import numpy as np
 from astropy.io import fits
