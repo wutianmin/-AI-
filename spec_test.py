@@ -65,7 +65,7 @@ outputsd = []
 
 for i in range(flux.shape[0]):
     flux_tt = torch.reshape(flux_tensor[i], (-1, 1, 3000))
-    flux_tt = flux_tt.to(device)  # 用GPU训练
+    flux_tt = flux_tt.to(device)  
 
     outputs = model1(flux_tt)
 
